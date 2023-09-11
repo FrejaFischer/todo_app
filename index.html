@@ -3,7 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js"></script>
     <title>To do</title>
   </head>
-  <body></body>
+  <body>
+    <header></header>
+    <main>
+      <section class="content">
+        <h1>To do</h1>
+        <div class="task">
+          <label for="task_input">
+            <input type="text" name="task_input" placeholder="Add new chore..." class="task_input" />
+            <button class="send">Add</button>
+          </label>
+          <div class="cat_btn">
+            <button class="red">Work</button>
+            <button class="blue">Study</button>
+            <button class="orange">Home</button>
+          </div>
+        </div>
+        <table id="list">
+          <tbody>
+            <!-- animal template will be copied and inserted here -->
+          </tbody>
+        </table>
+        <template id="task_template">
+          <tr>
+            <td>
+              <label for="study" class="task_container">
+                <input type="checkbox" class="checkbox" name="study" data-check="" />
+              </label>
+            </td>
+            <td data-field="desc">DESCRIPTION</td>
+          </tr>
+        </template>
+
+        <h2>Done</h2>
+        <table id="done">
+          <tbody>
+            <!-- animal template will be copied and inserted here -->
+          </tbody>
+        </table>
+      </section>
+      <!-- <section class="filter">
+        <h3>Filter</h3>
+        <button class="work">Work</button>
+        <button class="study">Study</button>
+        <button class="home">Home</button>
+      </section> -->
+    </main>
+    <footer></footer>
+  </body>
 </html>
