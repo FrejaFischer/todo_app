@@ -18,9 +18,9 @@
             <button class="send">Add</button>
           </label>
           <div class="cat_btn">
-            <button class="red">Work</button>
-            <button class="blue">Study</button>
-            <button class="orange">Home</button>
+            <button class="work">.</button>
+            <button class="study">.</button>
+            <button class="home">.</button>
           </div>
         </div>
         <table id="list">
@@ -45,17 +45,34 @@
             </label>
           </td>
           <td data-field="desc">DESCRIPTION</td>
+          <td data-field="cat">
+            <div class="work_cat hide"></div>
+            <div class="study_cat hide"></div>
+            <div class="home_cat hide"></div>
+          </td>
           <td data-field="trash">
             <button class="trashicon"></button>
           </td>
         </tr>
       </template>
-      <!-- <section class="filter">
+      <section class="filter">
         <h3>Filter</h3>
-        <button class="work">Work</button>
-        <button class="study">Study</button>
-        <button class="home">Home</button>
-      </section> -->
+        <div class="filter_cat">
+          <button class="work" data-filter="work">.</button>
+          <p>- Work</p>
+        </div>
+        <div class="filter_cat">
+          <button class="study" data-filter="study">.</button>
+          <p>- Study</p>
+        </div>
+        <div class="filter_cat">
+          <button class="home" data-filter="home">.</button>
+          <p>- Home</p>
+        </div>
+        <div class="filter_cat">
+          <button class="all" data-filter="*">Show all</button>
+        </div>
+      </section>
     </main>
     <footer></footer>
   </body>

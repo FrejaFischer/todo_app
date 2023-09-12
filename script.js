@@ -3,18 +3,34 @@ const done = [];
 let count = 1;
 
 window.addEventListener("load", start);
+
 function start() {
   document.querySelector(".send").addEventListener("click", addObject);
+  document.querySelectorAll(".cat_btn button").forEach((btn) => {
+    btn.addEventListener("click", (evt) => {
+      if (evt.target.dataset.cat == "work" || evt.target.dataset.cat == "study" || evt.target.dataset.cat == "home") {
+        console.log("no");
+        evt.target.setAttribute("data-cat", "");
+      } else {
+        evt.target.setAttribute("data-cat", `${evt.target.className}`);
+      }
+    });
+  });
+  document.querySelectorAll(".filter_cat").forEach((btn) => {
+    btn.addEventListener("click", filtering);
+  });
 }
 
 function addObject() {
+  //   console.log("hej" + document.querySelector(".work").classList);
   let obj = {
     desc: "",
     id: "",
-    cat: ["work", "studie"],
+    cat: [],
   };
   let text = document.querySelector(".task_input").value;
   let id = count++;
+
   //clear the input
   document.querySelector(".task_input").value = "";
 
@@ -23,12 +39,28 @@ function addObject() {
 
   obj.desc = text;
   obj.id = id;
-
-  console.log(obj);
+  //If any of the cat_btn has been clicked, then add to the cat array
+  if (document.querySelector(".work").dataset.cat == "work") {
+    console.log("work_clicked");
+    obj.cat.push("work");
+  }
+  if (document.querySelector(".study").dataset.cat == "study") {
+    console.log("study_clicked");
+    obj.cat.push("study");
+  }
+  if (document.querySelector(".home").dataset.cat == "home") {
+    console.log("home_clicked");
+    obj.cat.push("home");
+  }
+  //makes the cat_btn buttons go back to default, ready for new making of task
+  document.querySelector(".work").setAttribute("data-cat", "");
+  document.querySelector(".study").setAttribute("data-cat", "");
+  document.querySelector(".home").setAttribute("data-cat", "");
+  //   console.log(obj);
 
   tasks.push(obj);
 
-  console.log(obj.id);
+  //   console.log(obj.id);
   //forEach of the objects created, run the showObject
   tasks.forEach(showObject);
 }
@@ -39,12 +71,34 @@ function showObject(task) {
 
   // set clone data
   clone.querySelector("[data-field=desc]").textContent = task.desc;
+  //   clone.querySelector("[data-field=work]").textContent = task.cat;
+  //   const cats = task.cat.toString();
+  //det er vores cat array
+  //   console.log(cats);
+  //   const cat = cats.split(",");
+  //   console.log("hallo" + cat);
+
+  console.log(task);
+  console.log(task.cat);
+  if (task.cat.includes("work")) {
+    console.log("task.cat has work");
+    // console.log(clone.querySelector(".work_cat"));
+    clone.querySelector(".work_cat").classList.remove("hide");
+  }
+  if (task.cat.includes("study")) {
+    console.log("task.cat has study");
+    clone.querySelector(".study_cat").classList.remove("hide");
+  }
+  if (task.cat.includes("home")) {
+    console.log("task.cat has home");
+    clone.querySelector(".home_cat").classList.remove("hide");
+  }
   //set an id, for later use when the task need to move or be deleted
   clone.querySelector(".checkbox").setAttribute("id", task.id);
   clone.querySelector(".trashicon").setAttribute("id", task.id);
-
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
+  //   console.log(task.cat);
 
   //Go to checkTask to make the checkbox eventhandlers
   checkTask();
@@ -111,7 +165,7 @@ function showDone(done) {
   clone.querySelector(".trashicon").setAttribute("id", done.id);
 
   clone.querySelector(".checkbox").setAttribute("data-check", "checked");
-  clone.querySelector(".trashicon").setAttribute("data-check", "checked");
+  clone.querySelector(".trashicon").setAttribute("data-trash", "checked");
   // append clone to list
   document.querySelector("#done tbody").appendChild(clone);
 
@@ -119,9 +173,11 @@ function showDone(done) {
 }
 
 function deleteObject(evt) {
-  if (evt.target.dataset.check === "checked") {
+  if (evt.target.dataset.trash === "checked") {
     console.log("delete done task");
     const identifier = parseInt(evt.target.getAttribute("id"));
+    // const index = done.map((e) => e.id);
+    // console.log(index);
     const index = done.map((e) => e.id).indexOf(identifier);
     done.splice(index, 1);
     document.querySelector("#list tbody").innerHTML = "";
@@ -139,5 +195,25 @@ function deleteObject(evt) {
     document.querySelector("#done tbody").innerHTML = "";
     tasks.forEach(showObject);
     done.forEach(showDone);
+  }
+}
+function filtering(evt) {
+  console.log(evt.target);
+  const clicked = evt.target.dataset.filter;
+  document.querySelector("#list tbody").innerHTML = "";
+  document.querySelector("#done tbody").innerHTML = "";
+  console.log(clicked);
+  if (clicked !== "*") {
+    let only = tasks.filter((task) => {
+      if (task.cat.includes(`${clicked}`)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    only.map((e) => showObject(e));
+  } else {
+    console.log(tasks);
+    tasks.forEach(showObject);
   }
 }
