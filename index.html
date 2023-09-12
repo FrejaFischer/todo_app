@@ -28,16 +28,6 @@
             <!-- animal template will be copied and inserted here -->
           </tbody>
         </table>
-        <template id="task_template">
-          <tr>
-            <td>
-              <label for="study" class="task_container">
-                <input type="checkbox" class="checkbox" name="study" data-check="" />
-              </label>
-            </td>
-            <td data-field="desc">DESCRIPTION</td>
-          </tr>
-        </template>
 
         <h2>Done</h2>
         <table id="done">
@@ -46,6 +36,20 @@
           </tbody>
         </table>
       </section>
+
+      <template id="task_template">
+        <tr>
+          <td class="task_container">
+            <label for="study">
+              <input type="checkbox" class="checkbox" name="study" data-check="" />
+            </label>
+          </td>
+          <td data-field="desc">DESCRIPTION</td>
+          <td data-field="trash">
+            <button class="trashicon"></button>
+          </td>
+        </tr>
+      </template>
       <!-- <section class="filter">
         <h3>Filter</h3>
         <button class="work">Work</button>
@@ -56,3 +60,5 @@
     <footer></footer>
   </body>
 </html>
+
+<!-- <img src="icons/trash-solid.svg" alt="trashcan" /> -->

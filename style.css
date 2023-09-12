@@ -1,15 +1,22 @@
+:root {
+  --blue-color: #001e57;
+  --white-color: #ffffff;
+}
+body {
+  background-color: var(--blue-color);
+}
 main {
   display: flex;
   flex-direction: row;
   width: 100vw;
 }
 
-.cic {
+/* .cic {
   height: 2em;
   width: 2em;
   background-color: red;
   border-radius: 2em;
-}
+} */
 
 .task {
   display: flex;
@@ -18,35 +25,61 @@ main {
 .cat_btn {
   display: flex;
 }
-.todo li {
+/* .todo li {
   list-style: none;
-}
+}*/
 .task_container {
-  cursor: pointer;
+  background-color: var(--blue-color);
 }
 .checkbox {
   appearance: none;
-  background-color: #fafafa;
-  border: 1px solid #cacece;
+  background-color: var(--white-color);
+  border: 1px solid var(--blue-color);
   padding: 9px;
   margin-top: 0.7em;
   border-radius: 1em;
   display: inline-block;
   height: 2em;
   width: 2em;
+  cursor: pointer;
 }
-.checkbox:active {
+/* .checkbox:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
+} */
 /* .checkbox:checked {
   background-color: red;
   border: 1px solid #adb8c0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
   color: #99a1a7;
 } */
+
+table {
+  border-spacing: 1em;
+}
 [data-check="checked"] {
-  background-color: red;
-  border: 1px solid #adb8c0;
+  background-color: var(--blue-color);
+  border: 1px solid var(--white-color);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
   color: #99a1a7;
+}
+[data-field="desc"] {
+  color: var(--blue-color);
+  width: 20em;
+  height: 3em;
+  background-color: var(--white-color);
+  border-radius: 1em;
+  padding-left: 1em;
+}
+.trashicon {
+  background-image: url("icons/trash-solid.svg");
+  width: 1.8em;
+  height: 2em;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+[data-field="trash"] {
+  background-color: var(--blue-color);
+  width: 1em;
 }
