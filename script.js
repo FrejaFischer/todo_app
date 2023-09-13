@@ -198,7 +198,11 @@ function deleteObject(evt) {
   }
 }
 function filtering(evt) {
+  document.querySelector(".filter_cat .work").classList.remove("work_active");
+  document.querySelector(".filter_cat .study").classList.remove("study_active");
+  document.querySelector(".filter_cat .home").classList.remove("home_active");
   console.log(evt.target);
+  evt.target.classList.add(`${evt.target.className}_active`);
   const clicked = evt.target.dataset.filter;
   document.querySelector("#list tbody").innerHTML = "";
   document.querySelector("#done tbody").innerHTML = "";
@@ -213,7 +217,7 @@ function filtering(evt) {
     });
     only.map((e) => showObject(e));
   } else {
-    console.log(tasks);
+    // console.log(tasks);
     tasks.forEach(showObject);
   }
 }

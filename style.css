@@ -53,8 +53,13 @@ main {
   color: #cca91d;
 }
 .work:hover,
-[data-cat="work"] {
+[data-cat="work"],
+.work_active {
   background-color: #ffd324;
+  background-image: url("icons/check-solid.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .study {
   cursor: pointer;
@@ -67,8 +72,13 @@ main {
   color: #cc8f33;
 }
 .study:hover,
-[data-cat="study"] {
+[data-cat="study"],
+.study_active {
   background-color: #ffb340;
+  background-image: url("icons/check-solid.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .home {
   cursor: pointer;
@@ -81,8 +91,13 @@ main {
   color: #cc5f00;
 }
 .home:hover,
-[data-cat="home"] {
+[data-cat="home"],
+.home_active {
   background-color: #ff7700;
+  background-image: url("icons/check-solid.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .task_container {
