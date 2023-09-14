@@ -1,10 +1,34 @@
-const tasks = [];
-const done = [];
+let tasks = [];
+let done = [];
 let count = 1;
 
 window.addEventListener("load", start);
 
 function start() {
+  if (localStorage.getItem("tasks") && localStorage.getItem("done") === null) {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.forEach(showObject);
+    console.log("tasks only", tasks);
+    count = JSON.parse(localStorage.getItem("count"));
+    done = [];
+  } else if (localStorage.getItem("tasks") && localStorage.getItem("done")) {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.forEach(showObject);
+    console.log("tasks both", tasks);
+    done = JSON.parse(localStorage.getItem("done"));
+    done.forEach(showDone);
+    count = JSON.parse(localStorage.getItem("count"));
+    console.log("the count is", count);
+    console.log("done both", done);
+  } else {
+    console.log("there is no storage");
+  }
+  if (localStorage.getItem("tasks") === "[]" && localStorage.getItem("done") === "[]") {
+    console.log("storage is empty");
+    count = 1;
+    console.log("now the count is", count);
+  }
+
   document.querySelector(".send").addEventListener("click", addObject);
   document.querySelectorAll(".cat_btn button").forEach((btn) => {
     btn.addEventListener("click", (evt) => {
@@ -16,13 +40,12 @@ function start() {
       }
     });
   });
-  document.querySelectorAll(".filter_cat").forEach((btn) => {
+  document.querySelectorAll(".filter_cat button").forEach((btn) => {
     btn.addEventListener("click", filtering);
   });
 }
 
 function addObject() {
-  //   console.log("hej" + document.querySelector(".work").classList);
   let obj = {
     desc: "",
     id: "",
@@ -31,6 +54,8 @@ function addObject() {
   let text = document.querySelector(".task_input").value;
   let id = count++;
 
+  console.log("the new id is", id);
+  console.log("the new count is", count);
   //clear the input
   document.querySelector(".task_input").value = "";
 
@@ -39,30 +64,37 @@ function addObject() {
 
   obj.desc = text;
   obj.id = id;
+
   //If any of the cat_btn has been clicked, then add to the cat array
   if (document.querySelector(".work").dataset.cat == "work") {
-    console.log("work_clicked");
+    // console.log("work_clicked");
     obj.cat.push("work");
   }
   if (document.querySelector(".study").dataset.cat == "study") {
-    console.log("study_clicked");
+    // console.log("study_clicked");
     obj.cat.push("study");
   }
   if (document.querySelector(".home").dataset.cat == "home") {
-    console.log("home_clicked");
+    // console.log("home_clicked");
     obj.cat.push("home");
   }
-  //makes the cat_btn buttons go back to default, ready for new making of task
+  //makes the cat_btn buttons go back to default, ready for new making of tasks
   document.querySelector(".work").setAttribute("data-cat", "");
   document.querySelector(".study").setAttribute("data-cat", "");
   document.querySelector(".home").setAttribute("data-cat", "");
   //   console.log(obj);
+  //   console.log(tasks);
 
   tasks.push(obj);
+  //   console.log(tasks);
 
   //   console.log(obj.id);
   //forEach of the objects created, run the showObject
   tasks.forEach(showObject);
+
+  //Update localstorage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem("count", JSON.stringify(count));
 }
 
 function showObject(task) {
@@ -78,11 +110,11 @@ function showObject(task) {
   //   const cat = cats.split(",");
   //   console.log("hallo" + cat);
 
-  console.log(task);
-  console.log(task.cat);
+  //   console.log(task);
+  //   console.log(task.cat);
+  //adds the right categories to the task
   if (task.cat.includes("work")) {
     console.log("task.cat has work");
-    // console.log(clone.querySelector(".work_cat"));
     clone.querySelector(".work_cat").classList.remove("hide");
   }
   if (task.cat.includes("study")) {
@@ -98,16 +130,19 @@ function showObject(task) {
   clone.querySelector(".trashicon").setAttribute("id", task.id);
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
-  //   console.log(task.cat);
 
   //Go to checkTask to make the checkbox eventhandlers
   checkTask();
 }
 
 function checkTask() {
+  //   console.log("checkTask t", tasks);
+  //   console.log("checkTask d", done);
   //If there is more than 1 task, then .querySelectorAll is in use
   if (tasks.length + done.length > 1) {
     console.log("over 1");
+    // document.querySelector(".checkbox").removeEventListener("click", moveObject);
+    // document.querySelector(".trashicon").removeEventListener("click", deleteObject);
     document.querySelectorAll(".checkbox").forEach((check) => {
       check.addEventListener("click", moveObject);
     });
@@ -115,13 +150,14 @@ function checkTask() {
       trash.addEventListener("click", deleteObject);
     });
   } else {
+    // console.log("I think there is onlt 1 item");
     document.querySelector(".checkbox").addEventListener("click", moveObject);
     document.querySelector(".trashicon").addEventListener("click", deleteObject);
   }
 }
 
 function moveObject(evt) {
-  console.log(evt);
+  console.log("moveObject evt", evt);
   //If the task have been checked already, and is clicked again then put it back to the todo-part
   if (evt.target.dataset.check === "checked") {
     console.log("not checked");
@@ -141,17 +177,22 @@ function moveObject(evt) {
     //show the remaining tasks in both the todo-part and the done-part
     tasks.forEach(showObject);
     done.forEach(showDone);
+    //Update localstorage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("done", JSON.stringify(done));
   } else {
     console.log("checked");
     const identifier = parseInt(evt.target.getAttribute("id"));
     console.log(identifier);
     const index = tasks.map((e) => e.id).indexOf(identifier);
     const completed = tasks.splice(index, 1);
-    done.push.apply(done, completed);
+    done.push(...completed);
     document.querySelector("#list tbody").innerHTML = "";
     document.querySelector("#done tbody").innerHTML = "";
     tasks.forEach(showObject);
     done.forEach(showDone);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("done", JSON.stringify(done));
   }
 }
 
@@ -184,6 +225,8 @@ function deleteObject(evt) {
     document.querySelector("#done tbody").innerHTML = "";
     tasks.forEach(showObject);
     done.forEach(showDone);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("done", JSON.stringify(done));
   } else {
     console.log("delete not done task");
     const identifier = parseInt(evt.target.getAttribute("id"));
@@ -195,6 +238,8 @@ function deleteObject(evt) {
     document.querySelector("#done tbody").innerHTML = "";
     tasks.forEach(showObject);
     done.forEach(showDone);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("done", JSON.stringify(done));
   }
 }
 function filtering(evt) {
@@ -202,12 +247,12 @@ function filtering(evt) {
   document.querySelector(".filter_cat .study").classList.remove("study_active");
   document.querySelector(".filter_cat .home").classList.remove("home_active");
   console.log(evt.target);
-  evt.target.classList.add(`${evt.target.className}_active`);
   const clicked = evt.target.dataset.filter;
   document.querySelector("#list tbody").innerHTML = "";
   document.querySelector("#done tbody").innerHTML = "";
   console.log(clicked);
   if (clicked !== "*") {
+    evt.target.classList.add(`${evt.target.className}_active`);
     let only = tasks.filter((task) => {
       if (task.cat.includes(`${clicked}`)) {
         return true;
@@ -216,8 +261,10 @@ function filtering(evt) {
       }
     });
     only.map((e) => showObject(e));
+    done.forEach(showDone);
   } else {
     // console.log(tasks);
     tasks.forEach(showObject);
+    done.forEach(showDone);
   }
 }
