@@ -82,13 +82,9 @@ function addObject() {
   document.querySelector(".work").setAttribute("data-cat", "");
   document.querySelector(".study").setAttribute("data-cat", "");
   document.querySelector(".home").setAttribute("data-cat", "");
-  //   console.log(obj);
-  //   console.log(tasks);
 
   tasks.push(obj);
-  //   console.log(tasks);
 
-  //   console.log(obj.id);
   //forEach of the objects created, run the showObject
   tasks.forEach(showObject);
 
@@ -103,16 +99,8 @@ function showObject(task) {
 
   // set clone data
   clone.querySelector("[data-field=desc]").textContent = task.desc;
-  //   clone.querySelector("[data-field=work]").textContent = task.cat;
-  //   const cats = task.cat.toString();
-  //det er vores cat array
-  //   console.log(cats);
-  //   const cat = cats.split(",");
-  //   console.log("hallo" + cat);
 
-  //   console.log(task);
-  //   console.log(task.cat);
-  //adds the right categories to the task
+  //Show which categories the task includes
   if (task.cat.includes("work")) {
     console.log("task.cat has work");
     clone.querySelector(".work_cat").classList.remove("hide");
@@ -136,13 +124,9 @@ function showObject(task) {
 }
 
 function checkTask() {
-  //   console.log("checkTask t", tasks);
-  //   console.log("checkTask d", done);
   //If there is more than 1 task, then .querySelectorAll is in use
   if (tasks.length + done.length > 1) {
     console.log("over 1");
-    // document.querySelector(".checkbox").removeEventListener("click", moveObject);
-    // document.querySelector(".trashicon").removeEventListener("click", deleteObject);
     document.querySelectorAll(".checkbox").forEach((check) => {
       check.addEventListener("click", moveObject);
     });
@@ -150,20 +134,19 @@ function checkTask() {
       trash.addEventListener("click", deleteObject);
     });
   } else {
-    // console.log("I think there is onlt 1 item");
+    console.log("There is only 1 item");
     document.querySelector(".checkbox").addEventListener("click", moveObject);
     document.querySelector(".trashicon").addEventListener("click", deleteObject);
   }
 }
 
 function moveObject(evt) {
-  console.log("moveObject evt", evt);
   //If the task have been checked already, and is clicked again then put it back to the todo-part
   if (evt.target.dataset.check === "checked") {
     console.log("not checked");
     //take the id from the checkbox who has been clicked. (parseInt makes the stringed number to an actual number)
     const identifier = parseInt(evt.target.getAttribute("id"));
-    //map through the done array, and find the place of the object with the same id as the clicked checkbox.
+    //map through the done array, and make an array with all the id's. Then find the place of the object with the same id as the clicked checkbox.
     const index = done.map((e) => e.id).indexOf(identifier);
     //splice the done array where the right object is and take it out
     const completed = done.splice(index, 1);
@@ -217,8 +200,6 @@ function deleteObject(evt) {
   if (evt.target.dataset.trash === "checked") {
     console.log("delete done task");
     const identifier = parseInt(evt.target.getAttribute("id"));
-    // const index = done.map((e) => e.id);
-    // console.log(index);
     const index = done.map((e) => e.id).indexOf(identifier);
     done.splice(index, 1);
     document.querySelector("#list tbody").innerHTML = "";
@@ -263,7 +244,6 @@ function filtering(evt) {
     only.map((e) => showObject(e));
     done.forEach(showDone);
   } else {
-    // console.log(tasks);
     tasks.forEach(showObject);
     done.forEach(showDone);
   }

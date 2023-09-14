@@ -139,9 +139,7 @@ main {
 table {
   border-spacing: 1em;
 }
-/* td {
-  vertical-align: center;
-} */
+
 [data-check="checked"] {
   background-image: url("icons/check-solid.svg");
   background-repeat: no-repeat;
@@ -187,7 +185,6 @@ table {
   flex-direction: row;
   width: max-content;
   height: 3em;
-  /* justify-content: space-between; */
 }
 .work_cat {
   margin: 0.5em;
@@ -195,7 +192,6 @@ table {
   height: 1em;
   width: 1em;
   border-radius: 100%;
-  /* padding: 1em; */
   background-color: #ffd324;
   color: #ffd324;
   align-self: center;
@@ -206,7 +202,6 @@ table {
   height: 1em;
   width: 1em;
   border-radius: 100%;
-  /* padding: 1em; */
   background-color: #ffb340;
   color: #ffb340;
   align-self: center;
@@ -217,7 +212,6 @@ table {
   height: 1em;
   width: 1em;
   border-radius: 100%;
-  /* padding: 1em; */
   background-color: #ff7700;
   color: #ff7700;
   align-self: center;
@@ -243,6 +237,7 @@ table {
   align-items: center;
   justify-content: space-between;
 }
+/* Mobileview */
 @media (max-width: 1140px) {
   main {
     display: flex;
