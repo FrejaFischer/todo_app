@@ -246,7 +246,7 @@ function filtering(evt) {
   document.querySelector(".filter_cat .work").classList.remove("work_active");
   document.querySelector(".filter_cat .study").classList.remove("study_active");
   document.querySelector(".filter_cat .home").classList.remove("home_active");
-  console.log(evt.target);
+
   const clicked = evt.target.dataset.filter;
   document.querySelector("#list tbody").innerHTML = "";
   document.querySelector("#done tbody").innerHTML = "";
