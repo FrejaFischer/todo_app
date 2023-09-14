@@ -260,4 +260,12 @@ table {
     justify-content: center;
     align-self: center;
   }
+  .task {
+    width: fit-content;
+    justify-self: center;
+  }
+  h1 {
+    width: fit-content;
+    justify-self: center;
+  }
 }
