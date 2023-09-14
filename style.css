@@ -10,16 +10,8 @@ main {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  margin: 0 5em 0 5em;
-  /* position: relative; */
+  margin: 0 5em 0 20%;
 }
-
-/* .cic {
-  height: 2em;
-  width: 2em;
-  background-color: red;
-  border-radius: 2em;
-} */
 
 .task {
   display: flex;
@@ -236,7 +228,7 @@ table {
 
 .filter {
   position: fixed;
-  right: 2em;
+  right: 20%;
   top: 2em;
   display: flex;
   flex-direction: column;
@@ -250,4 +242,22 @@ table {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+@media (max-width: 1140px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+  }
+  .filter {
+    position: inherit;
+    align-self: center;
+  }
+  .content {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-self: center;
+  }
 }
