@@ -5,6 +5,9 @@ let count = 1;
 window.addEventListener("load", start);
 
 function start() {
+  // done=JSON.parse(localStorage.getItem("done"))||[];
+  // tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
   if (localStorage.getItem("tasks") && localStorage.getItem("done") === null) {
     tasks = JSON.parse(localStorage.getItem("tasks"));
     tasks.forEach(showObject);
